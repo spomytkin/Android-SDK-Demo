@@ -81,7 +81,7 @@ public class SignupActivity extends Activity {
 		signupTask.execute(user);
 	}
 
-	protected void onSignup(BAASBoxResult<Void> result) {
+	protected void onSignup(BAASBoxResult<String> result) {
 		try {
 			result.get();
 			onUserSignedUp();
@@ -103,7 +103,7 @@ public class SignupActivity extends Activity {
 		}
 	}
 
-	public class SignupTask extends AsyncTask<JSONObject, Void, BAASBoxResult<Void>> {
+	public class SignupTask extends AsyncTask<JSONObject, Void, BAASBoxResult<String>> {
 		
 		@Override
 		protected void onPreExecute() {
@@ -111,12 +111,12 @@ public class SignupActivity extends Activity {
 		}
 		
 		@Override
-		protected BAASBoxResult<Void> doInBackground(JSONObject... params) {
+		protected BAASBoxResult<String> doInBackground(JSONObject... params) {
 			return App.bbox.signup(params[0]);
 		}
 
 		@Override
-		protected void onPostExecute(BAASBoxResult<Void> result) {
+		protected void onPostExecute(BAASBoxResult<String> result) {
 			signupButton.setEnabled(true);
 			onSignup(result);
 		}

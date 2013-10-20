@@ -79,7 +79,7 @@ public class LoginActivity extends Activity {
 		loginTask.execute(username, password);
 	}
 
-	protected void onLogin(BAASBoxResult<Void> result) {
+	protected void onLogin(BAASBoxResult<String> result) {
 		try {
 			result.get();
 			onUserLogged();
@@ -101,7 +101,7 @@ public class LoginActivity extends Activity {
 		}
 	}
 
-	public class LoginTask extends AsyncTask<String, Void, BAASBoxResult<Void>> {
+	public class LoginTask extends AsyncTask<String, Void, BAASBoxResult<String>> {
 		
 		@Override
 		protected void onPreExecute() {
@@ -109,12 +109,12 @@ public class LoginActivity extends Activity {
 		}
 		
 		@Override
-		protected BAASBoxResult<Void> doInBackground(String... params) {
+		protected BAASBoxResult<String> doInBackground(String... params) {
 			return App.bbox.login(params[0], params[1]);
 		}
 
 		@Override
-		protected void onPostExecute(BAASBoxResult<Void> result) {
+		protected void onPostExecute(BAASBoxResult<String> result) {
 			loginButton.setEnabled(true);
 			onLogin(result);
 		}
